@@ -1,0 +1,59 @@
+  <div class="container">
+    <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field>
+
+            <div *ngIf="firstFormGroup.get('firstCtrl')?.invalid && firstFormGroup.get('firstCtrl')?.errors && 
+            (firstFormGroup.get('firstCtrl')?.dirty || firstFormGroup.get('firstCtrl')?.touched)">
+                <small class="text-danger" *ngIf="firstFormGroup.get('firstCtrl')?.hasError('required')">
+                    This field is required. </small>
+                <small class="text-danger" *ngIf="firstFormGroup.get('firstCtrl')?.hasError('maxlength')">
+                    The maximum length for this field is 20 characters.
+                </small>
+            </div>
+
+              <div><button mat-button matStepperNext>Next</button></div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+          <form [formGroup]="secondFormGroup">
+            <mat-form-field appearance="fill">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                     required>
+            </mat-form-field>
+
+            <div *ngIf="secondFormGroup.get('secondCtrl')?.invalid && secondFormGroup.get('secondCtrl')?.errors && 
+            (secondFormGroup.get('secondCtrl')?.dirty || secondFormGroup.get('secondCtrl')?.touched)">
+                <small class="text-danger" *ngIf="secondFormGroup.get('secondCtrl')?.hasError('required')">
+                    This field is required. </small>
+                <small class="text-danger" *ngIf="secondFormGroup.get('secondCtrl')?.hasError('maxlength')">
+                    The maximum length for this field is 30 characters.
+                </small>
+            </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done!</p>
+          <p> Name: {{this.firstFormGroup.get('firstCtrl')?.value}} </p>
+          <p> Address: {{this.secondFormGroup.get('secondCtrl')?.value}} </p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+  </div>
+  
