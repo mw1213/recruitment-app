@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'form', component: FormComponent },
   { path: 'stepper', component: StepperComponent },
-  { path: '**',   redirectTo: '', pathMatch: 'full' }, // redirect to `first-component`
+  { path: '**',   redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
